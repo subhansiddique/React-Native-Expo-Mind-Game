@@ -70,4 +70,3 @@ export default Home;
 
 
 
-// https://chatgpt.com/share/673d958d-8328-800a-be14-831981ebcf15
