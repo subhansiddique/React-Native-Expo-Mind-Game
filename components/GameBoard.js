@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet,  } from 'react-native';
+import { View, StyleSheet, Button, Text, ScrollView } from 'react-native';
 import Card from './Card';
 
 const IMAGES = [
@@ -9,9 +9,12 @@ const IMAGES = [
   'https://m.media-amazon.com/images/I/71TTETKPCnL.png',
   'https://th.bing.com/th/id/OIP.ZUNwuSXgPZGQIceYpaAbDwHaHa?rs=1&pid=ImgDetMain',
   'https://th.bing.com/th/id/R.ca21e72cbc5540375e0de6d357a3095f?rik=HRgEmJGjYqgjDg&pid=ImgRaw&r=0',
+  'https://th.bing.com/th/id/OIP.B7CJZc9hL5CZSn_fAdflQgHaFj?rs=1&pid=ImgDetMain',
+  'https://th.bing.com/th/id/R.1c91e225ba91e71654b436171031e26a?rik=GAYqzMhjKo4VBQ&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fkite-png-hd-images-kite-png-transparent-image-850.png&ehk=MRdbE4CGyEplj5GxXBLhtcCWBcBRwuYP9whxVMeM4Dk%3d&risl=&pid=ImgRaw&r=0',
+  
 ];
 
-const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
+const shuffleArray = (array) => array.sort(() => Math.random() - 1);
 
 const generateCards = (level) => {
   const numPairs = Math.min(3 + level, 6); // Number of pairs increases with level
@@ -28,6 +31,7 @@ const generateCards = (level) => {
 export default function GameBoard({ level, setMessage, onLevelUp }) {
   const [cards, setCards] = useState(generateCards(level));
   const [selectedCards, setSelectedCards] = useState([]);
+  const [allMatched, setAllMatched] = useState(false);
 
   useEffect(() => {
     if (selectedCards.length === 2) {
@@ -41,11 +45,14 @@ export default function GameBoard({ level, setMessage, onLevelUp }) {
           )
         );
         setSelectedCards([]);
+
         // Check if all pairs are matched
-        if (cards.every((card) => card.isMatched || card.image === firstCard.image)) {
-          setTimeout(onLevelUp, 1000);
-          alert("you won")
-          
+        if (
+          cards.every(
+            (card) => card.isMatched || card.image === firstCard.image
+          )
+        ) {
+          setAllMatched(true);
         }
       } else {
         setMessage('No Match!');
@@ -74,19 +81,52 @@ export default function GameBoard({ level, setMessage, onLevelUp }) {
     }
   };
 
+  const handleNextLevel = () => {
+    setAllMatched(false);
+    onLevelUp();
+    setCards(generateCards(level + 1)); // Generate new cards for the next level
+  };
+
   return (
-    <View style={styles.cardContainer}>
-      {cards.map((card) => (
-        <Card key={card.id} card={card} onPress={() => handleCardPress(card)} />
-      ))}
+        <ScrollView>
+    <View style={styles.container}>
+      <View style={styles.cardContainer}>
+        {cards.map((card) => (
+          <Card key={card.id} card={card} onPress={() => handleCardPress(card)} />
+        ))}
+      </View>
+      {allMatched && (
+          
+        <View style={styles.nextLevelContainer}>
+          <Text style={styles.congratsText}>Congratulations! You completed this level.</Text>
+          <Button title="Next Level" onPress={handleNextLevel} />
+        </View>
+      )}
     </View>
+      </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   cardContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    marginBottom: 20,
+  },
+  nextLevelContainer: {
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  congratsText: {
+    fontSize: 18,
+    marginBottom: 10,
+    fontWeight: 'bold',
+    color: 'green',
   },
 });
