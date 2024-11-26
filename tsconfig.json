@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "components/GameBoard.js", "components/Card.js", "app/index.js"  ]
+, "components/GameBoard.js", "components/Card.js", "app/index.js", "app/Menue.tsx"  ]
 }

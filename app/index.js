@@ -1,23 +1,22 @@
 import { Link } from "expo-router";
-import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
-import GameLogo from "../assets/game.png";
+import { StyleSheet, Text, View, Image } from "react-native";
+import GameLogo from "../assets/R.png";
 function Home() {
   return (
-    <ImageBackground
-      source={{ uri: "https://img.freepik.com/premium-photo/dualshock-controller_863013-38216.jpg" }} // Replace with your image URL
-      style={styles.background}
-    >
+    
       <View style={styles.container}>
-        <Text style={styles.text}>Ｗｅｌｃｏｍｅ Ｔｏ Ｔｈｅ Ｇａｍｅ</Text>
         <Image
         source={GameLogo}
         style={styles.image}
         />
-        <Link href="/game" style={styles.btn}>
-          𝖘𝖙𝖆𝖗𝖙 𝖙𝖍𝖊 𝖌𝖆𝖒𝖊 🎮
+        <Text style={styles.text}> The Fastest Food Delivery In Town!  </Text>
+        <Text style={styles.para}> pick up Your Desire food Items from the menue .There are 200+ items  </Text>
+        <Link href="/(tabs)" style={styles.btn}>
+          Order Now🍕
         </Link>
       </View>
-    </ImageBackground>
+   
+  
   );
 }
 
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 255, 0.5)", // Slight overlay for contrast
+   backgroundColor:'black'
   },
   text: {
     fontSize: 20,
@@ -58,15 +57,22 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   image: {
-    width: 300, // Set the width of the image
-    height: 300, // Set the height of the image
-    marginBottom: 20, // Add some space between the image and the button
-    resizeMode: "contain", // Ensure the image scales properly
+    width: 300,
+    height: 300, 
+    marginBottom: 20, 
+    resizeMode: "contain", 
   },
+  para:{
+    fontSize: 10,
+    color: "gray", 
+    marginBottom: 20,
+    textShadowColor: "#000",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 4,
+    fontWeight: "bold",
+  }
 });
 
-export default Home;
-
-
+export default Home;
 
 
