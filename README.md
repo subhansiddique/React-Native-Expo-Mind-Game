@@ -8,7 +8,7 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
    ```bash
    npm install
-     npm install react-native-snap-carousel
+   npm install react-native-snap-carousel
    ```
   
 
